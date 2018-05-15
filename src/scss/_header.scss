@@ -1,0 +1,35 @@
+.beer-head{
+	height: 200px;
+	background-color: black;
+ }
+.beer-logo{
+	width: 190px;
+}
+
+div.item-5{
+	text-decoration: none;
+    color: white;
+
+}
+.grid-container{
+	display: grid;
+	grid-template-columns: 3fr 4fr 1fr 1fr 1fr;
+
+}
+
+.grid-container > div {
+	text-align: center;
+	color: white;
+    align-self: flex-end;
+}
+.beer-options{
+	background-color: #0664b7;
+	color: white;
+	display: grid;
+    grid-template-columns: auto 100px 100px 100px auto;
+    padding: 10px;
+}
+.beer-options div{
+	display: flex;
+	justify-content:center;
+}

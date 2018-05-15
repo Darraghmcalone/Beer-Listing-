@@ -1,2 +1,34 @@
 @import 'reset';
+@import 'header';
+@import 'footer';
+@import 'pickabeer';
+@import 'fonts';
 
+html{
+	font-family: 'Open Sans', sans-serif;
+}
+
+.beer-types{
+	display: grid;
+    grid-template-columns: auto auto auto;
+    text-align: center;
+}
+
+.beer-types p{
+	margin-bottom: 40px;
+    margin-top: 20px;
+}
+
+.beer-types img{
+	height: 200px;
+	align-content: center;
+	margin-top: 50px;
+	margin-bottom: 15px;
+}
+div.beer{
+	background-color: #eff5f2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px;
+}

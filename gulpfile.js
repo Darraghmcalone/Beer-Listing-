@@ -11,13 +11,17 @@ var uglifycss = require("gulp-uglifycss");
 var sass = require("gulp-sass");
 var browserSync = require("browser-sync").create();
 
+
 var ENTRY_FILE = "./src/js/index.js";
 var OUTPUT_DIR = "./build/js";
 var OUTPUT_FILE = "bundle.js";
 var DELAY = 50;
 
+
 gulp.task("browserify", function () {
-	var b = browserify({ entries: [ ENTRY_FILE ] }).transform(babelify);
+	var b = browserify({ entries: [ ENTRY_FILE ] }).transform(babelify.configure({
+    presets: ["es2015"]
+  }));
 
 	function bundle() {
 		b.bundle()
