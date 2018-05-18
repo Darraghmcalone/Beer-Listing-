@@ -81,4 +81,43 @@ export default class Beer {
     
     container.appendChild(beer);
   }
+
+         appendRandomToPage() {
+           const container = document.querySelector('.beer-types');
+           let beerTempor = document.createElement('div');
+              // beerTempor.setAttribute('class','beer');
+
+           let imgElement = document.createElement('img');
+               imgElement.setAttribute('src',this.imageUrl);
+
+           let nameElement = document.createElement('h1');
+               nameElement.innerText = this.name;
+
+           let descriptionElement = document.createElement('p');
+               descriptionElement.innerText = this.description;
+           
+           let abvElement = document.createElement('div');
+        
+               abvElement.innerText = this.abv;
+
+           let ibuElement = document.createElement('div');
+            
+               ibuElement.innerText = this.ibu;
+           
+           let phElement = document.createElement('div');
+             
+               phElement.innerText = this.ph;
+
+           console.log(beerTempor);
+           beerTempor.appendChild(imgElement);
+           beerTempor.appendChild(nameElement);
+           beerTempor.appendChild(descriptionElement);
+           beerTempor.appendChild(abvElement);
+           beerTempor.appendChild(ibuElement);
+           beerTempor.appendChild(phElement);
+           console.log(phElement);
+
+           container.appendChild(beerTempor);
+           console.log(container);
+       }
 }

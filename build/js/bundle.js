@@ -1724,6 +1724,46 @@ var Beer = function () {
 
             container.appendChild(beer);
         }
+    }, {
+        key: 'appendRandomToPage',
+        value: function appendRandomToPage() {
+            var container = document.querySelector('.beer-types');
+            var beerTempor = document.createElement('div');
+            // beerTempor.setAttribute('class','beer');
+
+            var imgElement = document.createElement('img');
+            imgElement.setAttribute('src', this.imageUrl);
+
+            var nameElement = document.createElement('h1');
+            nameElement.innerText = this.name;
+
+            var descriptionElement = document.createElement('p');
+            descriptionElement.innerText = this.description;
+
+            var abvElement = document.createElement('div');
+
+            abvElement.innerText = this.abv;
+
+            var ibuElement = document.createElement('div');
+
+            ibuElement.innerText = this.ibu;
+
+            var phElement = document.createElement('div');
+
+            phElement.innerText = this.ph;
+
+            console.log(beerTempor);
+            beerTempor.appendChild(imgElement);
+            beerTempor.appendChild(nameElement);
+            beerTempor.appendChild(descriptionElement);
+            beerTempor.appendChild(abvElement);
+            beerTempor.appendChild(ibuElement);
+            beerTempor.appendChild(phElement);
+            console.log(phElement);
+
+            container.appendChild(beerTempor);
+            console.log(container);
+        }
     }]);
 
     return Beer;
@@ -1763,50 +1803,113 @@ var _Pickabeer2 = _interopRequireDefault(_Pickabeer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//change page number function inside(page)
 //Get Api
+/*axios.get('https://api.punkapi.com/v2/beers?page=1&per_page=6')
+  .then(response => {
+    //beers -> array with all the beer objects
+    const beers = response.data;
+
+    //singleBeer is how we can refer to each member of the array as we loop through it
+
+    //for each beer in our array, collect specific data
+
+    //function collectData()
+    //input -> singleBeer
+    //narrows down all that data, feeds it our class
+    //output -> a beer object created by our Beer class
+    for (let singleBeer of beers) {
+      
+      let beer = collectData(singleBeer);
+      
+      beer.addToPage();
+    }
+    const firstBeer = response.data;
+    console.log(beers);
+  });
+*/
+document.querySelectorAll('button').forEach(function (button) {
+  button.addEventListener('click', function (event) {
+    console.log(event.target);
+    var page = event.target.id;
+    _axios2.default.get('https://api.punkapi.com/v2/beers?page=' + page + '&per_page=6').then(function (response) {
+      //put response data in const variable
+      var beers = response.data;
+      document.querySelector('.beer-types').innerHTML = "";
+
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = beers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var singleBeer = _step.value;
+
+
+          var beer = collectData(singleBeer);
+          //console.log(beer);
+          beer.addToPage();
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      var firstBeer = response.data;
+      //console.log(beers);
+    });
+
+    //clear previous html div
+
+    //get random beer from JSON
+
+  });
+}); // Import stylesheets
+
 _axios2.default.get('https://api.punkapi.com/v2/beers?page=1&per_page=6').then(function (response) {
   //beers -> array with all the beer objects
   var beers = response.data;
 
-  //singleBeer is how we can refer to each member of the array as we loop through it
-
-  //for each beer in our array, collect specific data
-
-  //function collectData()
-  //input -> singleBeer
-  //narrows down all that data, feeds it our class
-  //output -> a beer object created by our Beer class
-  var _iteratorNormalCompletion = true;
-  var _didIteratorError = false;
-  var _iteratorError = undefined;
+  var _iteratorNormalCompletion2 = true;
+  var _didIteratorError2 = false;
+  var _iteratorError2 = undefined;
 
   try {
-    for (var _iterator = beers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-      var singleBeer = _step.value;
+    for (var _iterator2 = beers[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+      var singleBeer = _step2.value;
 
 
-      var _beer = collectData(singleBeer);
+      var beer = collectData(singleBeer);
 
-      _beer.addToPage();
+      beer.addToPage();
     }
   } catch (err) {
-    _didIteratorError = true;
-    _iteratorError = err;
+    _didIteratorError2 = true;
+    _iteratorError2 = err;
   } finally {
     try {
-      if (!_iteratorNormalCompletion && _iterator.return) {
-        _iterator.return();
+      if (!_iteratorNormalCompletion2 && _iterator2.return) {
+        _iterator2.return();
       }
     } finally {
-      if (_didIteratorError) {
-        throw _iteratorError;
+      if (_didIteratorError2) {
+        throw _iteratorError2;
       }
     }
   }
 
   var firstBeer = response.data;
-  console.log(beer);
-}); // Import stylesheets
+});
 
 function collectData(singleBeer) {
   var name = singleBeer.name;
@@ -1825,42 +1928,40 @@ function collectData(singleBeer) {
 //$('button').on('click', handler)
 
 
-document.querySelectorAll('button').forEach(function (button) {
-  button.addEventListener('click', function (event) {
-    var page = event.target.id;
+/*document.querySelectorAll('button').forEach(button => {
+  button.addEventListener('click', function(event) {
+    const page = event.target.id;
     console.log(page);
+  })
+}); */
+
+var element = document.getElementById('random');
+element.addEventListener('click', function () {
+  //clear previous html div
+  document.querySelector('.beer-types').innerHTML = "";
+  //get random beer from JSON
+  _axios2.default.get('https://api.punkapi.com/v2/beers/random').then(function (response) {
+    //put response data in const variable
+    var randomBeer = response.data[0];
+    var beer = collectData(randomBeer);
+
+    beer.appendRandomToPage();
+    phColor();
   });
 });
 
-/*document.querySelectorAll('button').forEach(button => {
-    button.addEventListener('click', function(event) {
-      
-    	const page = event.listener.id;
-axios.get('https://api.punkapi.com/v2/beers?page=' + page + '&per_page=6')
+function collectData(singleBeer) {
+  var name = singleBeer.name;
+  var description = singleBeer.description;
+  var tagline = singleBeer.tagline;
+  var imageUrl = singleBeer.image_url;
+  var abv = singleBeer.abv;
+  var ibu = singleBeer.ibu;
+  var ph = singleBeer.ph;
 
-                .then(response => {
-                //put response data in const variable
-                const beers = response.data;
-             document.getElementById('find').innerHTML = "";   
-
-                
-            for(let singleBeer of beers) {
-                
-                let beer = collectData(singleBeer);
-              
-                beer.addToPage();
-            }
-            const firstBeer = response.data;
-        });
-            console.log(page);
-            //clear previous html div
-            
-            //get random beer from JSON
-            
-
-});
-});
-*/
+  var beer = new _Beer2.default(name, description, tagline, imageUrl, abv, ibu, ph);
+  return beer;
+}
 
 /*import axios from 'axios'
 import Beer from './Beer'

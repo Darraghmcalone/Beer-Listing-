@@ -4,9 +4,9 @@ import axios from 'axios';
 import Beer from './Beer';
 import Pickabeer from './Pickabeer';
 
-
+//change page number function inside(page)
 //Get Api
-axios.get('https://api.punkapi.com/v2/beers?page=1&per_page=6')
+/*axios.get('https://api.punkapi.com/v2/beers?page=1&per_page=6')
   .then(response => {
     //beers -> array with all the beer objects
     const beers = response.data;
@@ -26,8 +26,56 @@ axios.get('https://api.punkapi.com/v2/beers?page=1&per_page=6')
       beer.addToPage();
     }
     const firstBeer = response.data;
-    console.log(beer);
+    console.log(beers);
   });
+*/
+document.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', function(event) {
+      console.log(event.target);
+      const page = event.target.id;
+axios.get('https://api.punkapi.com/v2/beers?page=' + page + '&per_page=6')
+
+                .then(response => {
+                //put response data in const variable
+                const beers = response.data;
+             document.querySelector('.beer-types').innerHTML = "";   
+
+                
+            for(let singleBeer of beers) {
+                
+                let beer = collectData(singleBeer);
+              //console.log(beer);
+                beer.addToPage();
+            }
+            const firstBeer = response.data;
+            //console.log(beers);
+        });
+            
+            //clear previous html div
+            
+            //get random beer from JSON
+            
+
+    });
+  })
+
+
+axios.get('https://api.punkapi.com/v2/beers?page=1&per_page=6')
+  .then(response => {
+    //beers -> array with all the beer objects
+    const beers = response.data;
+
+for(let singleBeer of beers) {
+                
+                let beer = collectData(singleBeer);
+              
+                beer.addToPage();
+            }
+            const firstBeer = response.data;
+            
+});
+
+
 
   function collectData(singleBeer) {
     const name = singleBeer.name;
@@ -46,42 +94,46 @@ axios.get('https://api.punkapi.com/v2/beers?page=1&per_page=6')
 //$('button').on('click', handler)
 
 
-document.querySelectorAll('button').forEach(button => {
+/*document.querySelectorAll('button').forEach(button => {
   button.addEventListener('click', function(event) {
     const page = event.target.id;
     console.log(page);
   })
-});
+}); */
 
-/*document.querySelectorAll('button').forEach(button => {
-    button.addEventListener('click', function(event) {
-      
-    	const page = event.listener.id;
-axios.get('https://api.punkapi.com/v2/beers?page=' + page + '&per_page=6')
-
+let element = document.getElementById('random');
+    element.addEventListener('click', function() {
+            //clear previous html div
+            document.querySelector('.beer-types').innerHTML = "";
+            //get random beer from JSON
+            axios.get('https://api.punkapi.com/v2/beers/random')
                 .then(response => {
                 //put response data in const variable
-                const beers = response.data;
-             document.getElementById('find').innerHTML = "";   
-
+                let randomBeer = response.data[0];
+                let beer = collectData(randomBeer);
                 
-            for(let singleBeer of beers) {
+                beer.appendRandomToPage();                
+                phColor();
                 
-                let beer = collectData(singleBeer);
-              
-                beer.addToPage();
-            }
-            const firstBeer = response.data;
-        });
-            console.log(page);
-            //clear previous html div
-            
-            //get random beer from JSON
-            
+                })
+            });
 
-});
-});
-*/
+
+function collectData(singleBeer) {
+    const name = singleBeer.name;
+      const description = singleBeer.description;
+      const tagline = singleBeer.tagline;
+      const imageUrl = singleBeer.image_url;
+      const abv = singleBeer.abv;
+      const ibu = singleBeer.ibu;
+      const ph = singleBeer.ph;
+
+      let beer = new Beer(name, description, tagline, imageUrl, abv, ibu, ph);
+      return beer
+  }
+
+
+
  
 /*import axios from 'axios'
 import Beer from './Beer'
